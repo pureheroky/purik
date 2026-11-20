@@ -2,6 +2,9 @@
 
 namespace Database\Seeders;
 
+use App\Models\InventoryItem;
+use App\Models\Item;
+use App\Models\Pet;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -15,13 +18,35 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
+        $this->call(ItemSeeder::class);
 
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
+        $admin = User::factory()->admin()->create([
+            'name' => 'Admin',
+            'email' => 'admin@admin.com',
         ]);
 
-        $this->call(ItemSeeder::class);
+        Pet::factory()->for($admin)->create([
+            'name' => 'Purik',
+            'level' => 2,
+            'experience' => 30,
+            'satiety' => 60,
+            'happiness' => 85,
+            'energy' => 45,
+            'cleanliness' => 75,
+        ]);
+
+        foreach (Item::take(4)->get() as $item) {
+            InventoryItem::factory()->for($admin)->for($item)->create(['quantity' => 2]);
+        }
+
+        $players = User::factory(5)->create();
+
+        foreach ($players as $player) {
+            Pet::factory()->for($player)->create();
+
+            InventoryItem::factory()->for($player)->for(Item::inRandomOrder()->first())->create([
+                'quantity' => fake()->numberBetween(1, 3),
+            ]);
+        }
     }
 }
