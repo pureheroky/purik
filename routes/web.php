@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\InventoryController;
+use App\Http\Controllers\ItemController;
 use App\Http\Controllers\PetController;
 use App\Http\Controllers\ShopController;
 use Illuminate\Support\Facades\Route;
@@ -20,6 +21,8 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('inventory', [InventoryController::class, 'index'])->name('inventory');
     Route::post('inventory/apply', [InventoryController::class, 'apply'])->name('inventory.apply');
+
+    Route::resource('items', ItemController::class)->middleware('can:manage-items');
 });
 
 require __DIR__.'/settings.php';

@@ -1,5 +1,5 @@
-import { Link } from '@inertiajs/react';
-import { Backpack, Gamepad2, Store } from 'lucide-react';
+import { Link, usePage } from '@inertiajs/react';
+import { Backpack, Gamepad2, PackagePlus, Store } from 'lucide-react';
 import AppLogo from '@/components/app-logo';
 import { NavMain } from '@/components/nav-main';
 import { NavUser } from '@/components/nav-user';
@@ -13,6 +13,7 @@ import {
     SidebarMenuItem,
 } from '@/components/ui/sidebar';
 import { game, inventory, shop } from '@/routes';
+import { index as items } from '@/routes/items';
 import type { NavItem } from '@/types';
 
 const mainNavItems: NavItem[] = [
@@ -33,7 +34,18 @@ const mainNavItems: NavItem[] = [
     },
 ];
 
+const adminNavItem: NavItem = {
+    title: 'Manage items',
+    href: items(),
+    icon: PackagePlus,
+};
+
 export function AppSidebar() {
+    const { auth } = usePage().props;
+    const navItems = auth.user.is_admin
+        ? [...mainNavItems, adminNavItem]
+        : mainNavItems;
+
     return (
         <Sidebar collapsible="icon" variant="inset">
             <SidebarHeader>
@@ -49,7 +61,7 @@ export function AppSidebar() {
             </SidebarHeader>
 
             <SidebarContent>
-                <NavMain items={mainNavItems} />
+                <NavMain items={navItems} />
             </SidebarContent>
 
             <SidebarFooter>

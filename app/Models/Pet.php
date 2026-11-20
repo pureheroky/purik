@@ -34,6 +34,8 @@ class Pet extends Model
 
     public const MAX_STAT = 100;
 
+    public const STATS = ['satiety', 'happiness', 'energy', 'cleanliness'];
+
     /**
      * Get the attributes that should be cast.
      *

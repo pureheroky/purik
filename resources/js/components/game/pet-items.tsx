@@ -1,6 +1,7 @@
 import { Link, router } from '@inertiajs/react';
 import { useState } from 'react';
 import { toast } from 'sonner';
+import ItemImage from '@/components/shop/item-image';
 import { Button } from '@/components/ui/button';
 import { STATS } from '@/lib/game';
 import { inventory, shop } from '@/routes';
@@ -60,11 +61,7 @@ export default function PetItems({
                             disabled={processing}
                             onClick={() => applyItem(item.id)}
                         >
-                            <img
-                                src={item.image_path ?? undefined}
-                                alt={item.name}
-                                className="size-10 pixelated"
-                            />
+                            <ItemImage item={item} className="size-10" />
                             <span className="flex items-center gap-0.5 text-xs font-bold">
                                 <img
                                     src={STATS[item.effect_stat].icon}

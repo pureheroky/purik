@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react';
+import ItemImage from '@/components/shop/item-image';
 import { STATS } from '@/lib/game';
 import { cn } from '@/lib/utils';
 import type { Item } from '@/types';
@@ -17,11 +18,7 @@ export default function ItemCard({
     return (
         <div className="flex flex-col overflow-hidden rounded-lg bg-card pixel-box">
             <div className="relative flex justify-center border-b-[3px] border-ink bg-muted py-5">
-                <img
-                    src={item.image_path ?? undefined}
-                    alt={item.name}
-                    className="size-32 pixelated"
-                />
+                <ItemImage item={item} className="size-32 text-5xl" />
 
                 {quantity !== undefined && (
                     <span className="absolute top-2 right-2 rounded-sm border-2 border-ink bg-card px-2 font-bold tabular-nums">
