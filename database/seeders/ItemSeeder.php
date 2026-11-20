@@ -20,8 +20,6 @@ class ItemSeeder extends Seeder
             ['name' => 'Red bull', 'description' => 'Full power in one can.', 'category' => 'energy', 'price' => 25, 'effect_stat' => 'energy', 'effect_value' => 40, 'image_path' => '/images/items/energy-drink.png'],
         ];
 
-        foreach ($items as $item) {
-            Item::updateOrCreate(['image_path' => $item['image_path']], $item);
-        }
+        Item::factory()->createMany($items);
     }
 }
