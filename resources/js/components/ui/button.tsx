@@ -9,7 +9,6 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        // The game-style buttons have a dark outline and a hard shadow, and "press in" when clicked.
         default:
           "border-2 border-ink bg-primary text-primary-foreground shadow-pixel hover:bg-primary/85 active:translate-x-[3px] active:translate-y-[3px] active:shadow-none",
         destructive:
